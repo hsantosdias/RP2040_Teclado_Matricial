@@ -35,7 +35,7 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(RP2040_Teclado_Matricial RP2040_Teclado_Matricial.c )
+add_executable(RP2040_Teclado_Matricial RP2040_Teclado_Matricial.c MatrixKeypad.c)
 
 pico_set_program_name(RP2040_Teclado_Matricial "RP2040_Teclado_Matricial")
 pico_set_program_version(RP2040_Teclado_Matricial "0.1")
