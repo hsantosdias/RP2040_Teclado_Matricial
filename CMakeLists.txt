@@ -23,30 +23,43 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico_w CACHE STRING "Board type")
+set(PICO_BOARD pico CACHE STRING "Board type")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-
-project(main C CXX ASM)
+project(RP2040_Teclado_Matricial C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(main
-    main.c
-    )
+add_executable(RP2040_Teclado_Matricial RP2040_Teclado_Matricial.c )
 
-# pull in common dependencies
-target_link_libraries(main pico_stdlib)
+pico_set_program_name(RP2040_Teclado_Matricial "RP2040_Teclado_Matricial")
+pico_set_program_version(RP2040_Teclado_Matricial "0.1")
 
-if (PICO_CYW43_SUPPORTED)
-    target_link_libraries(main pico_cyw43_arch_none)
-endif()
+# Modify the below lines to enable/disable output over UART/USB
+pico_enable_stdio_uart(RP2040_Teclado_Matricial 0)
+pico_enable_stdio_usb(RP2040_Teclado_Matricial 1)
 
-# create map/bin/hex file etc.
-pico_add_extra_outputs(main)
+# Add the standard library to the build
+target_link_libraries(RP2040_Teclado_Matricial
+        pico_stdlib)
+
+# Add the standard include files to the build
+target_include_directories(RP2040_Teclado_Matricial PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}
+)
+
+# Add any user requested libraries
+target_link_libraries(RP2040_Teclado_Matricial 
+        hardware_pio
+        hardware_clocks
+        hardware_pwm
+        )
+
+        
+pico_add_extra_outputs(RP2040_Teclado_Matricial)
 

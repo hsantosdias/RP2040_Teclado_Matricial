@@ -1,8 +1,14 @@
+#include <stdio.h>
 #include "pico/stdlib.h"
+#include "hardware/clocks.h"
+
 
 // Definição dos pinos
-const uint ROWS[4] = {2, 3, 4, 5}; // GPIOs para linhas
-const uint COLS[4] = {6, 7, 8, 9}; // GPIOs para colunas
+const uint ROWS[4] = {18, 19, 20, 4}; // GPIOs para linhas
+const uint COLS[4] = {16, 17, 9, 8}; // GPIOs para colunas
+
+//const uint LINHAS[4] = {18, 19, 20, 4}; 
+//const uint COLUNAS[4] = {16, 17, 9, 8};
 
 // Função para inicializar os pinos
 void inicializar_gpio() {

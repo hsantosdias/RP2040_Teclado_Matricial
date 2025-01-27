@@ -2,8 +2,12 @@
 #include <pico/stdlib.h>
 
 // Define os pinos das colunas do teclado
-const uint8_t COL_PINS[] = {1, 2, 3, 4}; 
-const uint8_t ROW_PINS[] = {5, 6, 7, 8};
+const uint8_t COL_PINS[] = {18, 19, 20, 4}; 
+const uint8_t ROW_PINS[] = {16, 17, 9, 8};
+
+//// Definição dos pinos
+//const uint ROWS[4] = {18, 19, 20, 4}; // GPIOs para linhas
+//const uint COLS[4] = {16, 17, 9, 8}; // GPIOs para colunas
 
 // Mapa de teclas 
 const char KEY_MAP[4][4] = {
