@@ -2,7 +2,7 @@
 #include "pico/stdlib.h"
 #include <stdlib.h>
 
-MatrixKeypad_t *MatrixKeypad_create(char *keymap, uint8_t *rowPins, uint8_t *colPins, uint8_t rown, uint8_t coln) {
+MatrixKeypad_t *MatrixKeypad_create(char *keymap, uint8_t *rowPins, uint8_t *colPins, uint8_t rownM, uint8_t colnM) {
     MatrixKeypad_t *keypad;
     uint8_t i;
 
@@ -11,21 +11,21 @@ MatrixKeypad_t *MatrixKeypad_create(char *keymap, uint8_t *rowPins, uint8_t *col
         return NULL;
     }
 
-    keypad->rown = rown;
-    keypad->coln = coln;
+    keypad->rownM = rownM;
+    keypad->colnM = colnM;
     keypad->rowPins = rowPins;
     keypad->colPins = colPins;
     keypad->keyMap = keymap;
     keypad->lastKey = '\0';
     keypad->buffer = '\0';
 
-    for (i = 0; i < keypad->rown; i++) {
+    for (i = 0; i < keypad->rownM; i++) {
         gpio_init(keypad->rowPins[i]);
         gpio_set_dir(keypad->rowPins[i], GPIO_OUT);
         gpio_put(keypad->rowPins[i], 1); // Set row to HIGH
     }
 
-    for (i = 0; i < keypad->coln; i++) {
+    for (i = 0; i < keypad->colnM; i++) {
         gpio_init(keypad->colPins[i]);
         gpio_set_dir(keypad->colPins[i], GPIO_IN);
         gpio_pull_up(keypad->colPins[i]);
@@ -35,18 +35,18 @@ MatrixKeypad_t *MatrixKeypad_create(char *keymap, uint8_t *rowPins, uint8_t *col
 }
 
 void MatrixKeypad_scan(MatrixKeypad_t *keypad) {
-    uint8_t row, col;
+    uint8_t rowkey, colkey;
     char key = '\0';
 
     if (keypad != NULL) {
-        for (row = 0; row < keypad->rown; row++) {
-            gpio_put(keypad->rowPins[row], 0); // Set row LOW
-            for (col = 0; col < keypad->coln; col++) {
-                if (gpio_get(keypad->colPins[col]) == 0) {
-                    key = keypad->keyMap[row * keypad->coln + col];
+        for (rowkey = 0; rowkey < keypad->rownM; rowkey++) {
+            gpio_put(keypad->rowPins[rowkey], 0); // Set row LOW
+            for (colkey = 0; colkey < keypad->colnM; colkey++) {
+                if (gpio_get(keypad->colPins[colkey]) == 0) {
+                    key = keypad->keyMap[rowkey * keypad->colnM + colkey];
                 }
             }
-            gpio_put(keypad->rowPins[row], 1); // Set row HIGH
+            gpio_put(keypad->rowPins[rowkey], 1); // Set row HIGH
         }
 
         if (keypad->lastKey != key) {
