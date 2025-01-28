@@ -1,4 +1,4 @@
 [wokwi]
 version = 1
-firmware = 'build/main.uf2'
-elf = 'build/main.elf'
+firmware = 'build/RP2040_Teclado_Matricial.uf2'
+elf = 'build/RP2040_Teclado_Matricial.elf'
