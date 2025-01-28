@@ -5,8 +5,8 @@
 
 // Define GPIO functions
 typedef struct {
-    uint8_t rown; 
-    uint8_t coln;
+    uint8_t rownM; 
+    uint8_t colnM;
     uint8_t *rowPins;
     uint8_t *colPins;
     char *keyMap;
@@ -14,7 +14,7 @@ typedef struct {
     char buffer;
 } MatrixKeypad_t;
 
-MatrixKeypad_t *MatrixKeypad_create(char *keymap, uint8_t *rowPins, uint8_t *colPins, uint8_t rown, uint8_t coln);
+MatrixKeypad_t *MatrixKeypad_create(char *keymap, uint8_t *rowPins, uint8_t *colPins, uint8_t rownM, uint8_t colnM);
 void MatrixKeypad_scan(MatrixKeypad_t *keypad);
 uint8_t MatrixKeypad_hasKey(MatrixKeypad_t *keypad);
 char MatrixKeypad_getKey(MatrixKeypad_t *keypad);
